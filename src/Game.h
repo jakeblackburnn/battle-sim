@@ -9,6 +9,7 @@
 #include <SDL_mixer.h>
 #include <vector>
 #include "Troop.h"
+#include "Renderer.h"
 
 class EventHandler;
 
@@ -38,18 +39,18 @@ public:
 private:
 
 	SDL_Window*   window;
-	SDL_Renderer* renderer;
+	Renderer* renderer;
 	EventHandler* eventHandler;
 
 		// Freindlies
-	std::vector<Troop> Red;
-	std::vector<Troop> Orange;
-	std::vector<Troop> Yellow;
+	std::vector<Troop> red;
+	std::vector<Troop> orange;
+	std::vector<Troop> yellow;
 
 		// Enemies
-	std::vector<Troop> Purple;
-	std::vector<Troop> Blue;
-	std::vector<Troop> Green;
+	std::vector<Troop> purple;
+	std::vector<Troop> blue;
+	std::vector<Troop> green;
 
 
 		// Core Game State

@@ -13,6 +13,7 @@ set(SOURCE_FILES
 	src/main.cpp
 	src/Game.cpp
 	src/EventHandler.cpp
+	src/Renderer.cpp
    )
 
 # Set platform-specific options

@@ -53,11 +53,13 @@ bool Game::init() {
 		return false;
 	}
 
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	if (!renderer) {
+	SDL_Renderer* sdlRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	if (!sdlRenderer) {
 		std::cerr << "Renderer Creation Failed." << SDL_GetError() << std::endl;
 		return false;
 	}
+
+	renderer = new Renderer(sdlRenderer);
 
 		// initialize audio
 	int audio_rate = 44100;
@@ -121,7 +123,25 @@ void Game::update() {
 
 
 void Game::render() {
-	// renderer logic
+
+	renderer->clearScreen();
+
+	renderer->renderBattlefield(red, orange, yellow, purple, blue, green);
+
+	renderer->renderUI(state == GameState::PLACING, 
+			   eraseMode, 
+			   budget,
+			   playButtonRect,
+			   nextButtonRect,
+		           eraseButtonRect,
+			   typeButtonRects );
+
+	if (state == GameState::WON || state == GameState::LOST) {
+		renderer->renderGameOverMessage(state == GameState::WON);
+	}
+
+	renderer->presentScreen();
+	
 }
 
 void Game::handleEvent(SDL_Event& e) {
@@ -135,8 +155,14 @@ void Game::cleanUp() {
 	// delete audio
 	Mix_CloseAudio();
 
-	if (renderer) SDL_DestroyRenderer(renderer);
-	if (window)   SDL_DestroyWindow(window);
+	if (renderer) { 
+		delete renderer;
+		renderer = nullptr;
+	}
+	if (window) {
+		SDL_DestroyWindow(window);
+		window = nullptr;
+	}
 	SDL_Quit();
 }
 

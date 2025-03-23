@@ -17,16 +17,16 @@ public:
 	 Renderer(SDL_Renderer* sdlRenderer);
 	~Renderer();
 
-	void RenderBattleField( const TroopVector red, 
+	void renderBattlefield( const TroopVector red, 
 			        const TroopVector orange, 
 				const TroopVector yellow, 
 				const TroopVector purple, 
-				const TroopVector, blue, 
+				const TroopVector blue, 
 				const TroopVector green  );
 
-	void RenderUI( bool  isPlacing, 
+	void renderUI( bool  isPlacing, 
 		       bool  eraseMode, 
-		       int   remainingBudget, 
+		       int   Budget, 
 
 		       const SDL_Rect& playButtonRect,
 		       const SDL_Rect& nextButtonRect,
@@ -34,13 +34,13 @@ public:
 		       const SDL_Rect* typeButtonRects  );
 
 
-	renderGameOverMessage(bool won);
+	void renderGameOverMessage(bool won);
 	void clearScreen();
 	void presentScreen();
 
 private:
 	SDL_Renderer* renderer;
-	void renderTroopVector(const TroopVector troops);
+	void renderTroops(const TroopVector troops, TroopType type);
 
 };
 
