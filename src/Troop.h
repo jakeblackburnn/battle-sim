@@ -9,5 +9,6 @@ struct Troop {
 	TroopType type;
 	
 	Troop(int px, int py, TroopType t) : x(px), y(py), type(t) {}
+};
 
 #endif 
