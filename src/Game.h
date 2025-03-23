@@ -31,6 +31,7 @@ public:
 	void render();
 	void handleEvent(SDL_Event& e);
 
+	void      setRunning(bool flag);
 	bool      isRunning() const { return running; }
 	GameState getState()  const { return state; }
 

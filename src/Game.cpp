@@ -85,6 +85,15 @@ bool Game::init() {
 
 }
 
+
+void Game::setRunning(bool flag) {
+	running = flag;
+}
+
+
+
+
+
 void Game::setupLevel( int level ) {
 
 	currentLevel = level;
@@ -116,7 +125,10 @@ void Game::render() {
 }
 
 void Game::handleEvent(SDL_Event& e) {
-	// event handler logic
+		// simple pass event to event handler (if it exists)
+	if (eventHandler != nullptr) {
+		eventHandler->handleEvent(e);
+	}
 }
 
 void Game::cleanUp() {
