@@ -1,61 +1,43 @@
-// 
-// Created By J. Blackburn - Mar 22 2025
+//
+// Created by J. Blackburn - Mar 22 2025
 //
 
-#include <SDL2/SDL.h>
+#include "Game.h"
+#include <SDL.h>
 #include <iostream>
 
 int main(int argc, char* argv[]) {
-    // Initialize SDL
-    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-        std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
-        return 1;
-    }
 
-    // Create window
-    SDL_Window* window = SDL_CreateWindow("SDL Game", 100, 100, 1000, 800, SDL_WINDOW_SHOWN);
-    if (window == nullptr) {
-        std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
-        SDL_Quit();
-        return 1;
-    }
+	Game game;
 
-    // Create renderer
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (renderer == nullptr) {
-        std::cerr << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-        return 1;
-    }
+	if (!game.init()) {
+		std::cerr << "Failed to initialize Game." << std::endl;
+		return -1;
+	}
 
-    // Main game loop
-    bool quit = false;
-    SDL_Event e;
-    while (!quit) {
-        while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) {
-                quit = true;
-            }
-        }
+	game.setupLevel(1);
 
-        // Clear screen
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        SDL_RenderClear(renderer);
 
-        // Render something
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red
-        SDL_Rect rect = { 250, 200, 500, 500 };
-        SDL_RenderFillRect(renderer, &rect);
+		// MAIN GAME LOOP
+	SDL_Event e;
 
-        // Update screen
-        SDL_RenderPresent(renderer);
-    }
+	while (game.isRunning()) {
+		
+		while (SDL_PollEvent(&e) != 0) {
+			game.handleEvent(e);
+		}
 
-    // Clean up
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+		if (game.getState() == GameState::RUNNING) {
+			game.update();
+		}
 
-    return 0;
+		game.render();
+
+		SDL_Delay(32); // 32 ms delay between tics
+	}
+
+
+	game.cleanUp();
+
+	return 0;
 }
