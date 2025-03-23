@@ -6,7 +6,8 @@
 #define EVENT_HANDLER_H
 
 #include <SDL.h>
-#include "Game.h"
+
+class Game;
 
 class EventHandler {
 public:

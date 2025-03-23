@@ -8,7 +8,9 @@
 #include <SDL.h>
 #include <SDL_mixer.h>
 #include <vector>
-//#include "Troop.h"
+#include "Troop.h"
+
+class EventHandler;
 
 	// Game State enum
 enum class GameState { PLACING, RUNNING, WON, LOST };
@@ -24,10 +26,10 @@ public:
 	void cleanUp();
 
 	void setupLevel(int level);
-	void handleEvent(SDL_Event& e);
 
 	void update();
 	void render();
+	void handleEvent(SDL_Event& e);
 
 	bool      isRunning() const { return running; }
 	GameState getState()  const { return state; }
@@ -36,6 +38,7 @@ private:
 
 	SDL_Window*   window;
 	SDL_Renderer* renderer;
+	EventHandler* eventHandler;
 
 		// Freindlies
 	std::vector<Troop> Red;
@@ -75,8 +78,6 @@ private:
 		// Helper Functions
 	void addFriendly(int x, int y, TroopType type);
 	void removeFriendly(int x, int y);
-
-}
-
+};
 
 #endif
