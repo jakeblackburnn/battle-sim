@@ -74,7 +74,6 @@ void Renderer::renderTroops( TroopVector troops, TroopType type ) {
 
 void Renderer::renderUI( bool  isPlacing, 
 		         bool  eraseMode, 
-		         int   budget, 
 			 TroopType currentPlaceType,
 
 		         const SDL_Rect& playButtonRect,

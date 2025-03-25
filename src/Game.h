@@ -34,10 +34,6 @@ public:
 
 	void      setRunning(bool flag);
 	bool      isRunning() const { return running; }
-	bool      isBudgetEmpty() const {
-		if (budget == 0) return true;
-		else return false;
-	}
 	GameState getState()  const { return state; }
 
 		// Freindlies
@@ -60,7 +56,6 @@ public:
 	int       maxTics;
 
 		// Placement Mode State
-	int       budget;
 	TroopType currentPlaceType;
 	bool      eraseMode;
 
@@ -69,6 +64,7 @@ public:
 	SDL_Rect nextButtonRect;
 	SDL_Rect typeButtonRects[3];
 	SDL_Rect eraseButtonRect;
+	// SDL_Rect battlefieldRect;
 
 		// Audio 
 	Mix_Music* battleMusic;
@@ -102,11 +98,11 @@ private:
 	int countLongBlues   (int x, int y); 
 	int countMidGreens   (int x, int y); 
 
-	int countCloseReds(int x, int y);
-	int countMidReds  (int x, int y); 
-	int countMidOranges    (int x, int y); 
-	int countLongOranges   (int x, int y); 
-	int countMidYellows   (int x, int y); 
+	int countCloseReds  (int x, int y);
+	int countMidReds    (int x, int y); 
+	int countMidOranges (int x, int y); 
+	int countLongOranges(int x, int y); 
+	int countMidYellows (int x, int y); 
 };
 
 #endif

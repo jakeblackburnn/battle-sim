@@ -74,21 +74,18 @@ void EventHandler::handlePlacementEvent(SDL_Event& e) {
 				  for ( auto iter = game->red.begin(); iter != game->red.end(); iter++ ) {
 					  if ( iter->x == mx && iter->y == my ) {
 						  game->red.erase(iter);
-						  game->budget++;
 						  return;
 					  }
 				  }
 				  for ( auto iter = game->orange.begin(); iter != game->orange.end(); iter++ ) {
 					  if ( iter->x == mx && iter->y == my ) {
 						  game->orange.erase(iter);
-						  game->budget++;
 						  return;
 					  }
 				  }
 				  for ( auto iter = game->yellow.begin(); iter != game->yellow.end(); iter++ ) {
 					  if ( iter->x == mx && iter->y == my ) {
 						  game->yellow.erase(iter);
-						  game->budget++;
 						  return;
 					  }
 				  }

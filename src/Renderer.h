@@ -26,7 +26,6 @@ public:
 
 	void renderUI( bool  isPlacing, 
 		       bool  eraseMode, 
-		       int   Budget, 
 		       TroopType currentPlaceType,
 
 		       const SDL_Rect& playButtonRect,

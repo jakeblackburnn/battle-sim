@@ -14,8 +14,7 @@ Game::Game() : window(nullptr),
 	       state(GameState::PLACING), 
 	       running(false), 
 	       tics(0), 
-	       maxTics(1000),
-	       budget(20), 
+	       maxTics(10000),
 	       currentPlaceType(TroopType::RED),
 	       eraseMode(false),
 	       clickSound(nullptr),
@@ -101,9 +100,6 @@ void Game::setupLevel() {
 	green.clear();
 	blue.clear();
 	purple.clear();
-	
-	// set budget based on level
-	budget = 200;
 	
 	// Place Enemy troops
 
@@ -878,7 +874,6 @@ void Game::render() {
 
 	renderer->renderUI(state == GameState::PLACING, 
 			   eraseMode, 
-			   budget,
 			   currentPlaceType,
 			   playButtonRect,
 			   nextButtonRect,
