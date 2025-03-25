@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 
-	game.setupLevel(1);
+	game.setupLevel();
 
 
 		// MAIN GAME LOOP
@@ -33,7 +33,7 @@ int main(int argc, char* argv[]) {
 
 		game.render();
 
-		SDL_Delay(32); // 32 ms delay between tics
+		SDL_Delay(5); // 32 ms delay between tics
 	}
 
 

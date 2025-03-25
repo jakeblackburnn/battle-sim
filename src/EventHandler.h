@@ -6,6 +6,7 @@
 #define EVENT_HANDLER_H
 
 #include <SDL.h>
+#include <SDL_mixer.h>
 
 class Game;
 

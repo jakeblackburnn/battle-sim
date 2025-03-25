@@ -22,13 +22,21 @@ void Renderer::clearScreen() {
 }
 
 
-void Renderer::renderBattlefield( const TroopVector red, 
-				  const TroopVector orange, 
-				  const TroopVector yellow, 
-				  const TroopVector purple, 
-				  const TroopVector blue, 
-				  const TroopVector green  )
+void Renderer::renderBattlefield( TroopVector red, 
+				  TroopVector orange, 
+				  TroopVector yellow, 
+				  TroopVector purple, 
+				  TroopVector blue, 
+				  TroopVector green  )
 {
+	int w = 300;
+	int h = 300;
+
+	SDL_Rect borderRect = { 350, 250, w + 2, h + 2 };
+
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderDrawRect(renderer, &borderRect);
+	
 	renderTroops(red,    TroopType::RED);
 	renderTroops(purple, TroopType::PURPLE);
 
@@ -40,7 +48,7 @@ void Renderer::renderBattlefield( const TroopVector red,
 }
 
 
-void Renderer::renderTroops( const TroopVector troops, TroopType type ) {
+void Renderer::renderTroops( TroopVector troops, TroopType type ) {
 
 	for ( const auto& troop : troops ) {
 			// set render position
@@ -67,6 +75,7 @@ void Renderer::renderTroops( const TroopVector troops, TroopType type ) {
 void Renderer::renderUI( bool  isPlacing, 
 		         bool  eraseMode, 
 		         int   budget, 
+			 TroopType currentPlaceType,
 
 		         const SDL_Rect& playButtonRect,
 		         const SDL_Rect& nextButtonRect,
@@ -75,7 +84,7 @@ void Renderer::renderUI( bool  isPlacing,
 {
 		// Render Play button
 	SDL_SetRenderDrawColor(renderer, 50, 255, 50, 255); // light green play button
-	SDL_RenderDrawRect(renderer, &playButtonRect);
+	SDL_RenderFillRect(renderer, &playButtonRect);
 
 		// Render troop placement type selection
 	for (int i = 0; i < 3; i++) {
@@ -85,13 +94,31 @@ void Renderer::renderUI( bool  isPlacing,
 		else if (i == 2) { SDL_SetRenderDrawColor(renderer, 255, 222, 33, 255); }
 
 		SDL_RenderFillRect(renderer, &typeRect);
-		SDL_RenderDrawRect(renderer, &typeRect); // button outline
+
+			// green border around current selection
+		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+
+		if (i == 0 && currentPlaceType == TroopType::RED) {
+			SDL_RenderDrawRect(renderer, &typeRect);
+		}
+		if (i == 1 && currentPlaceType == TroopType::ORANGE) {
+			SDL_RenderDrawRect(renderer, &typeRect);
+		}
+		if (i == 2 && currentPlaceType == TroopType::YELLOW) {
+			SDL_RenderDrawRect(renderer, &typeRect);
+		}
+							 
 	}
 
 	SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
 	SDL_RenderFillRect(renderer, &eraseButtonRect);
 	SDL_RenderDrawRect(renderer, &eraseButtonRect);
-}
+
+	if (eraseMode) { 
+		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+		SDL_RenderDrawRect(renderer, &eraseButtonRect);
+	}
+} 
 
 void Renderer::renderGameOverMessage(bool won) {}
 

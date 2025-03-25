@@ -2,6 +2,7 @@
 #define TROOP_H
 
 enum class TroopType { RED, ORANGE, YELLOW, PURPLE, BLUE, GREEN };
+enum class MoveOption { F, FR, FL, L, H, R, B, BR, BL, S };
 
 struct Troop {
 	int x;

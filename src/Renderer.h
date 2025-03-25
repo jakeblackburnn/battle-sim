@@ -17,16 +17,17 @@ public:
 	 Renderer(SDL_Renderer* sdlRenderer);
 	~Renderer();
 
-	void renderBattlefield( const TroopVector red, 
-			        const TroopVector orange, 
-				const TroopVector yellow, 
-				const TroopVector purple, 
-				const TroopVector blue, 
-				const TroopVector green  );
+	void renderBattlefield( TroopVector red, 
+			        TroopVector orange, 
+				TroopVector yellow, 
+				TroopVector purple, 
+				TroopVector blue, 
+				TroopVector green  );
 
 	void renderUI( bool  isPlacing, 
 		       bool  eraseMode, 
 		       int   Budget, 
+		       TroopType currentPlaceType,
 
 		       const SDL_Rect& playButtonRect,
 		       const SDL_Rect& nextButtonRect,
@@ -40,7 +41,7 @@ public:
 
 private:
 	SDL_Renderer* renderer;
-	void renderTroops(const TroopVector troops, TroopType type);
+	void renderTroops(TroopVector troops, TroopType type);
 
 };
 
