@@ -14,7 +14,7 @@ using TroopVector = std::vector<Troop>&;
 
 class Renderer {
 public:
-	 Renderer(SDL_Renderer* sdlRenderer);
+	 Renderer(SDL_Renderer* sdlRenderer, int startX, int startY);
 	~Renderer();
 
 	void renderBattlefield( TroopVector red, 
@@ -39,6 +39,9 @@ public:
 	void presentScreen();
 
 private:
+	int startX;
+	int startY;
+
 	SDL_Renderer* renderer;
 	void renderTroops(TroopVector troops, TroopType type);
 

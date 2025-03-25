@@ -51,7 +51,7 @@ bool Game::init() {
 		std::cerr << "Renderer Creation Failed." << SDL_GetError() << std::endl;
 		return false;
 	}
-	renderer = new Renderer(sdlRenderer);
+	renderer = new Renderer(sdlRenderer, 350, 250);
 
 		// Create Renderer
 	eventHandler = new EventHandler(this);
@@ -103,173 +103,9 @@ void Game::setupLevel() {
 	
 	// Place Enemy troops
 
-	purple.push_back( Troop(550, 300, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 302, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 304, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 306, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 308, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 310, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 312, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 314, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 316, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 318, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 320, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 322, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 324, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 326, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 328, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 330, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 332, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 334, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 336, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 338, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 340, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 342, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 344, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 346, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 348, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 350, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 352, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 354, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 356, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 358, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 360, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 362, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 364, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 366, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 368, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 370, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 372, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 374, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 376, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 378, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 380, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 382, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 384, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 386, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 388, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 390, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 392, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 394, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 396, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 398, TroopType::PURPLE) );
-
-	purple.push_back( Troop(550, 400, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 402, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 404, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 406, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 408, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 410, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 412, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 414, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 416, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 418, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 420, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 422, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 424, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 426, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 428, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 430, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 432, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 434, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 436, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 438, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 440, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 442, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 444, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 446, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 448, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 450, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 452, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 454, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 456, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 458, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 460, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 462, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 464, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 466, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 468, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 470, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 472, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 474, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 476, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 478, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 480, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 482, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 484, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 486, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 488, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 490, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 492, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 494, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 496, TroopType::PURPLE) );
-	purple.push_back( Troop(550, 498, TroopType::PURPLE) );
-
-
-	blue.push_back( Troop( 570, 300, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 305, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 310, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 315, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 320, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 325, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 330, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 335, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 340, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 345, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 350, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 355, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 360, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 365, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 370, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 375, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 380, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 385, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 390, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 395, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 400, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 405, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 410, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 415, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 420, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 425, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 430, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 435, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 440, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 445, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 450, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 455, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 460, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 465, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 470, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 475, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 480, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 485, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 490, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 495, TroopType::BLUE) );
-	blue.push_back( Troop( 570, 500, TroopType::BLUE) );
-
-	green.push_back( Troop( 560, 300, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 310, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 320, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 330, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 340, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 350, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 360, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 370, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 380, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 390, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 400, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 410, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 420, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 430, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 440, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 450, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 450, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 460, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 470, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 480, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 490, TroopType::GREEN ) );
-	green.push_back( Troop( 560, 500, TroopType::GREEN ) );
+	purple.push_back( Troop(50, 20, TroopType::PURPLE) );
+	blue.push_back( Troop( 50, 40, TroopType::BLUE) );
+	green.push_back( Troop( 50, 60, TroopType::GREEN ) );
 	
 	// setup init current place type, erase mode, tics, and state
 	
@@ -619,7 +455,7 @@ bool Game::isOccupied(int x, int y) {
 
 	// if out of bounds return false by default
 	
-	if (x > 1000 || x < 100 || y > 1000 || y < 100) {
+	if (x > 100 || y > 100) {
 		return true;
 	}
 

@@ -5,7 +5,7 @@
 
 #include "Renderer.h"
 
-Renderer::Renderer(SDL_Renderer* sdlRenderer) : renderer(sdlRenderer) {}
+Renderer::Renderer(SDL_Renderer* sdlRenderer, int startX, int startY) : renderer(sdlRenderer), startX(startX), startY(startY) {}
 
 Renderer::~Renderer() {
 	SDL_DestroyRenderer(renderer);
@@ -32,7 +32,7 @@ void Renderer::renderBattlefield( TroopVector red,
 	int w = 300;
 	int h = 300;
 
-	SDL_Rect borderRect = { 350, 250, w + 2, h + 2 };
+	SDL_Rect borderRect = { startX - 1, startY - 1, w + 2, h + 2 };
 
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderDrawRect(renderer, &borderRect);
@@ -53,10 +53,10 @@ void Renderer::renderTroops( TroopVector troops, TroopType type ) {
 	for ( const auto& troop : troops ) {
 			// set render position
 		SDL_Rect rect;
-		rect.x = troop.x;
-		rect.y = troop.y;
-		rect.w = 1;
-		rect.h = 1;
+		rect.x = startX + troop.x * 3;
+		rect.y = startY + troop.y * 3;
+		rect.w = 3;
+		rect.h = 3;
 			// Set Friendly Colors
 		if (type == TroopType::RED)    { SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); }
 		if (type == TroopType::ORANGE) { SDL_SetRenderDrawColor(renderer, 255, 100, 0, 255); }

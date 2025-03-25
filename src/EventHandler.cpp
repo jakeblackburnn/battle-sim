@@ -4,6 +4,7 @@
 
 #include "EventHandler.h"
 #include "Game.h"
+#include <iostream>
 
 EventHandler::EventHandler(Game* game) : game(game) {}
 
@@ -69,43 +70,34 @@ void EventHandler::handlePlacementEvent(SDL_Event& e) {
 		  if ( mx > 351 && my > 251 && mx <= 651 && my <= 551) { //TODO: figure out battlefield boundaries
 		        
 		          if (game->eraseMode) { // attempt erase troop
-						  
-					  // erase troop
-				  for ( auto iter = game->red.begin(); iter != game->red.end(); iter++ ) {
-					  if ( iter->x == mx && iter->y == my ) {
-						  game->red.erase(iter);
-						  return;
-					  }
-				  }
-				  for ( auto iter = game->orange.begin(); iter != game->orange.end(); iter++ ) {
-					  if ( iter->x == mx && iter->y == my ) {
-						  game->orange.erase(iter);
-						  return;
-					  }
-				  }
-				  for ( auto iter = game->yellow.begin(); iter != game->yellow.end(); iter++ ) {
-					  if ( iter->x == mx && iter->y == my ) {
-						  game->yellow.erase(iter);
-						  return;
-					  }
-				  }
 
+				  // TODO: figure out troop erasure
 
 
 			  } else { // attempt to place troop
 				   
+				// figure out troop coordinates
+				
+				  int bx = mx - 350;
+				  int by = my - 250;
+
+				  int tx = (bx - (bx % 3)) / 3;
+				  int ty = (by - (by % 3)) / 3;
+
+				  std::cout << "Attempting to place troop at: " << tx << ", " << ty << std::endl;
+				   
 					  // check if spot is occupied
 
-				  if (!game->isOccupied(mx, my)) {
+				  if (!game->isOccupied(tx, ty)) {
 					  // place troop (use game helper func)
 					  if (game->currentPlaceType == TroopType::RED) {
-						  game->red.push_back( Troop(mx, my, TroopType::RED) );
+						  game->red.push_back( Troop(tx, ty, TroopType::RED) );
 					  }
 					  if (game->currentPlaceType == TroopType::ORANGE) {
-						  game->orange.push_back( Troop(mx, my, TroopType::ORANGE) );
+						  game->orange.push_back( Troop(tx, ty, TroopType::ORANGE) );
 					  }
 					  if (game->currentPlaceType == TroopType::YELLOW) {
-						  game->yellow.push_back( Troop(mx, my, TroopType::YELLOW) );
+						  game->yellow.push_back( Troop(tx, ty, TroopType::YELLOW) );
 					  }
 
 					  return;
