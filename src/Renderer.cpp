@@ -55,8 +55,8 @@ void Renderer::renderTroops( TroopVector troops, TroopType type ) {
 		SDL_Rect rect;
 		rect.x = startX + troop.x * 3;
 		rect.y = startY + troop.y * 3;
-		rect.w = 3;
-		rect.h = 3;
+		rect.w = 5;
+		rect.h = 5;
 			// Set Friendly Colors
 		if (type == TroopType::RED)    { SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); }
 		if (type == TroopType::ORANGE) { SDL_SetRenderDrawColor(renderer, 255, 100, 0, 255); }
@@ -67,6 +67,8 @@ void Renderer::renderTroops( TroopVector troops, TroopType type ) {
 		if (type == TroopType::GREEN)  { SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); }
 			// draw troop
 		SDL_RenderFillRect(renderer, &rect);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		SDL_RenderDrawRect(renderer, &rect); // black border around troop
 	}
 }
 
