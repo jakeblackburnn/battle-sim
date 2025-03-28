@@ -8,7 +8,7 @@
 #include <SDL.h>
 #include <SDL_mixer.h>
 #include <vector>
-#include "Troop.h"
+
 #include "Renderer.h"
 
 class EventHandler;
@@ -37,14 +37,8 @@ public:
 	GameState getState()  const { return state; }
 
 		// Freindlies
-	std::vector<Troop> red;
-	std::vector<Troop> orange;
-	std::vector<Troop> yellow;
 
 		// Enemies
-	std::vector<Troop> purple;
-	std::vector<Troop> blue;
-	std::vector<Troop> green;
 
 	bool isOccupied(int x, int y);
 
@@ -72,37 +66,16 @@ public:
 
 private:
 
+		// Core Architecture
 	SDL_Window*   window;
-	Renderer* renderer;
+	Renderer*     renderer;
 	EventHandler* eventHandler;
 
 		// Helper Functions
-	void addFriendly(int x, int y, TroopType type);
-	void removeFriendly(int x, int y);
+	placeCombatant(Position p, Color c);
+	removeCombatant(Combatant* combatant);
 
-	void move();
-	MoveOption selectMove(int fr, int f, int fl, int r, int h, int l, int br, int b, int bl, int s);
 
-	void kill();
-	bool selectKill(int l, int d);
-	void deleteTroop(TroopVector troops, Troop* t);
-
-	int countFrontFriendlys(int x, int y); 
-	int countBackFriendlys (int x, int y); 
-	int countLeftFriendlys (int x, int y);
-	int countRightFriendlys(int x, int y);
-
-	int countClosePurples(int x, int y);
-	int countMidPurples  (int x, int y); 
-	int countMidBlues    (int x, int y); 
-	int countLongBlues   (int x, int y); 
-	int countMidGreens   (int x, int y); 
-
-	int countCloseReds  (int x, int y);
-	int countMidReds    (int x, int y); 
-	int countMidOranges (int x, int y); 
-	int countLongOranges(int x, int y); 
-	int countMidYellows (int x, int y); 
 };
 
 #endif
