@@ -8,7 +8,12 @@
 #include <iostream>
 using namespace std;
 
-Combatant::Combatant(Position p, Color c) : position(p) color(c) {}
+Combatant::Combatant(Position p, Color c) : position(p), color(c) {}
+
+Position Combatant::getPosition() {
+	return position;
+}
+	
 
 bool Combatant::move() {
 	Traits ts = getTraits();

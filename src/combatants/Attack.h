@@ -9,13 +9,13 @@
 
 class Attack : public Combatant {
 public:
-	Attack(Position p, Color c);
+	Attack(Position p, Color c) : Combatant(p, c) {}
 
 protected: 
 	const Traits& getTraits() const override { return traits; }
 
 private:
 	static const Traits traits;
-}
+};
 
 #endif

@@ -15,6 +15,4 @@ const Traits Attack::traits = {
 	1, // back right
 	1, // back left
 	1  // stick to friendlies
-}
-
-Attack::Attack(Position p, Color c);
+};
