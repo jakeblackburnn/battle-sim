@@ -14,6 +14,8 @@ set(SOURCE_FILES
 	src/Game.cpp
 	src/EventHandler.cpp
 	src/Renderer.cpp
+	src/combatants/Combatant.cpp
+	src/combatants/Attack.cpp
    )
 
 # Set platform-specific options
