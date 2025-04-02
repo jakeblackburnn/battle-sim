@@ -47,7 +47,7 @@ protected:
 private:
 	Position position;
 	Color    color;
-	int      orientation; // assumed to be 1 for friendlies or -1 for enemies
+	int      orientation = 1; // assumed to be 1 for friendlies or -1 for enemies
 };
 
 #endif
