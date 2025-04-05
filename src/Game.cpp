@@ -16,7 +16,7 @@ Game::Game() : window(nullptr),
 	       running(false), 
 	       tics(0), 
 	       maxTics(10000),
-	       currentPlaceType(TroopType::RED),
+	       currentPlaceType(Color::RED),
 	       eraseMode(false),
 	       clickSound(nullptr),
 	       battleMusic(nullptr)
@@ -31,6 +31,8 @@ Game::Game() : window(nullptr),
 	}
 
 	eraseButtonRect = { 10 + 3*40, 10, 30, 30 };
+
+	battlefieldRect = { 349, 249, 303, 303 };
 }
 
 
@@ -53,7 +55,7 @@ bool Game::init() {
 		std::cerr << "Renderer Creation Failed." << SDL_GetError() << std::endl;
 		return false;
 	}
-	renderer = new Renderer(sdlRenderer, 350, 250);
+	renderer = new Renderer(sdlRenderer);
 
 		// Create Renderer
 	eventHandler = new EventHandler(this);
@@ -88,8 +90,25 @@ void Game::setRunning(bool flag) {
 void Game::setupLevel() {
 
 	// clear troop vectors
+	   red.clear();
+	orange.clear();
+	yellow.clear();
+
+	purple.clear();
+	  blue.clear();
+	 green.clear();
 	
 	// Place Enemy troops
+
+	addCombatant( Position(75, 10), Color::PURPLE );
+	addCombatant( Position(75, 20), Color::PURPLE );
+	addCombatant( Position(75, 30), Color::PURPLE );
+	addCombatant( Position(75, 40), Color::PURPLE );
+	addCombatant( Position(75, 50), Color::PURPLE );
+	addCombatant( Position(75, 60), Color::PURPLE );
+	addCombatant( Position(75, 70), Color::PURPLE );
+	addCombatant( Position(75, 80), Color::PURPLE );
+	addCombatant( Position(75, 90), Color::PURPLE );
 	
 	// setup init current place type, erase mode, tics, and state
 	
@@ -107,6 +126,17 @@ void Game::update() {
 	if (state != GameState::RUNNING) return; 
 
 		// Move Update 
+		// https://en.wikipedia.org/wiki/Transitive_dependency
+		
+	// collect move attempts
+	// build dep graph
+	// topological sort to resolve movements
+
+
+	bool asdf = true;	
+	for (Combatant* c : purple) {
+		if (c) { asdf = c->move(); }
+	}
 		
 		// Kill Update
 		
@@ -119,7 +149,7 @@ void Game::update() {
 
 
 
-bool Game::isOccupied(int x, int y) {
+bool Game::isOccupied(Position p) {
 	// TODO: code me
 	return false;
 }
@@ -130,14 +160,26 @@ void Game::deleteCombatant(Combatant* combatant) {
 }
 
 void Game::addCombatant(Position p, Color c) {
-	// TODO: code me
+	if (c == Color::PURPLE) {
+		purple.push_back( new Attack(p, c, -1) );
+	}
+
+	if (c == Color::RED) {
+		purple.push_back( new Attack(p, c,  1) );
+	}
 }
 
 
 
 void Game::render() {
 	renderer->clearScreen();
-	// renderer->renderBattlefield();
+	renderer->renderBattlefield(red,
+				    orange, 
+				    yellow, 
+				    purple,
+				    blue,
+				    green, 
+				    battlefieldRect );
 
 	renderer->renderUI(state == GameState::PLACING, 
 			   eraseMode, 
@@ -145,7 +187,7 @@ void Game::render() {
 			   playButtonRect,
 			   nextButtonRect,
 		           eraseButtonRect,
-			   typeButtonRects );
+			   typeButtonRects  );
 
 	if (state == GameState::WON || state == GameState::LOST) {
 		renderer->renderGameOverMessage(state == GameState::WON);

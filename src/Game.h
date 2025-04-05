@@ -10,6 +10,8 @@
 #include <vector>
 
 #include "Renderer.h"
+#include "combatants/Combatant.h"
+#include "combatants/Attack.h"
 
 class EventHandler;
 
@@ -37,10 +39,16 @@ public:
 	GameState getState()  const { return state; }
 
 		// Freindlies
+	std::vector<Combatant*> red;
+	std::vector<Combatant*> orange;
+	std::vector<Combatant*> yellow;
 
 		// Enemies
+	std::vector<Combatant*> purple;
+	std::vector<Combatant*> blue;
+	std::vector<Combatant*> green;
 
-	bool isOccupied(int x, int y);
+	bool isOccupied(Position p);
 
 
 		// Core Game State
@@ -50,7 +58,7 @@ public:
 	int       maxTics;
 
 		// Placement Mode State
-	TroopType currentPlaceType;
+	Color currentPlaceType;
 	bool      eraseMode;
 
 		// UI elements
@@ -58,7 +66,7 @@ public:
 	SDL_Rect nextButtonRect;
 	SDL_Rect typeButtonRects[3];
 	SDL_Rect eraseButtonRect;
-	// SDL_Rect battlefieldRect;
+	SDL_Rect battlefieldRect;
 
 		// Audio 
 	Mix_Music* battleMusic;
@@ -66,14 +74,14 @@ public:
 
 private:
 
-		// Core Architecture
+		// Core Game Architecture
 	SDL_Window*   window;
 	Renderer*     renderer;
 	EventHandler* eventHandler;
 
 		// Helper Functions
-	placeCombatant(Position p, Color c);
-	removeCombatant(Combatant* combatant);
+	void addCombatant(Position p, Color c);
+	void deleteCombatant(Combatant* combatant);
 
 
 };
