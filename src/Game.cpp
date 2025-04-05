@@ -89,17 +89,17 @@ void Game::setRunning(bool flag) {
 
 void Game::setupLevel() {
 
-	// clear troop vectors
-	   red.clear();
-	orange.clear();
-	yellow.clear();
+		// clear battlefield
+	for (auto& [p, dat] : battlefield) {
+		if (dat.occupant) {
+			// TODO: implement combatant destructor
+			// delete dat.occupant;
+			dat.occupant = nullptr;
+		}
+	}
+	battlefield.clear();
 
-	purple.clear();
-	  blue.clear();
-	 green.clear();
-	
-	// Place Enemy troops
-
+		// Place Enemy troops
 	addCombatant( Position(75, 10), Color::PURPLE );
 	addCombatant( Position(75, 20), Color::PURPLE );
 	addCombatant( Position(75, 30), Color::PURPLE );
@@ -126,16 +126,15 @@ void Game::update() {
 	if (state != GameState::RUNNING) return; 
 
 		// Move Update 
-		// https://en.wikipedia.org/wiki/Transitive_dependency
-		
-	// collect move attempts
-	// build dep graph
-	// topological sort to resolve movements
-
-
-	bool asdf = true;	
-	for (Combatant* c : purple) {
-		if (c) { asdf = c->move(); }
+	for ( auto& [p, dat] : battlefield ) {
+		if ( dat.occupant ) {
+			Position target = dat.occupant->targetPos();
+			if ( !battlefield[target].occupant ) {
+				dat.occupant->movePos(target);
+				battlefield[target].occupant = dat.occupant;
+				dat.occupant = nullptr;
+			}	
+		}
 	}
 		
 		// Kill Update
@@ -160,12 +159,12 @@ void Game::deleteCombatant(Combatant* combatant) {
 }
 
 void Game::addCombatant(Position p, Color c) {
-	if (c == Color::PURPLE) {
-		purple.push_back( new Attack(p, c, -1) );
+	if ( battlefield[p].occupant ) { // delete existing combatant in position
+		deleteCombatant( battlefield[p].occupant );
 	}
 
-	if (c == Color::RED) {
-		purple.push_back( new Attack(p, c,  1) );
+	if (c == Color::PURPLE) {
+		battlefield[p].occupant = new Attack(p, c, -1);
 	}
 }
 
@@ -173,13 +172,7 @@ void Game::addCombatant(Position p, Color c) {
 
 void Game::render() {
 	renderer->clearScreen();
-	renderer->renderBattlefield(red,
-				    orange, 
-				    yellow, 
-				    purple,
-				    blue,
-				    green, 
-				    battlefieldRect );
+	renderer->renderBattlefield( battlefield, battlefieldRect );
 
 	renderer->renderUI(state == GameState::PLACING, 
 			   eraseMode, 
