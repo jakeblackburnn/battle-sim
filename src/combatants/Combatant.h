@@ -5,14 +5,10 @@
 #ifndef COMBATANT_H
 #define COMBATANT_H
 
+#include "battlefield.h"
+
 enum class Color  { RED, ORANGE, YELLOW, PURPLE, BLUE, GREEN };
 enum class MoveOption { F, FR, FL, L, H, R, B, BR, BL, S };
-
-struct Position {
-	int x;
-	int y;
-	Position(int px, int py) : x(px), y(py) {}
-};
 
 struct Traits {    // Tendencies to make moves 
 	int f;     // stored as integer "scores" which partition the space of possible moves;
