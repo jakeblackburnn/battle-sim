@@ -26,7 +26,7 @@ struct Traits {    // Tendencies to make moves
 // Abstract Combatant
 class Combatant {
 public: 
-	// Color    getColor();
+	Color    getColor();
 	Position getPosition();
 
 	bool move();     // Make a decision on how to move (MoveOption), and then attempt that movement

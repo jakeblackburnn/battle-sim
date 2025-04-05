@@ -12,6 +12,10 @@ MoveOption selectMove(const Traits& traits);
 
 Combatant::Combatant(Position p, Color c, int o) : position(p), color(c), orientation(o) {}
 
+Color Combatant::getColor() {
+	return color;
+}
+
 Position Combatant::getPosition() {
 	return position;
 }
