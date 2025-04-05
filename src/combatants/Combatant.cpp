@@ -16,12 +16,16 @@ Color Combatant::getColor() {
 	return color;
 }
 
-Position Combatant::getPosition() {
+Position Combatant::getPos() {
 	return position;
+}
+
+void Combatant::movePos(Position p) {
+	position = p;
 }
 	
 
-bool Combatant::move() {
+Position Combatant::targetPos() {
 
 	Traits     ts           = getTraits();
 	MoveOption selection    = selectMove(ts);
@@ -29,7 +33,7 @@ bool Combatant::move() {
 
 	switch (selection) {
 
-		case MoveOption::H  : return true; 
+		case MoveOption::H  :  break; 
 
 		case MoveOption::F  : { 
 			new_position = Position( position.x + ( 1 * orientation ),  
@@ -89,18 +93,14 @@ bool Combatant::move() {
 			break;
 		}
 
-		case MoveOption::S  : return true; // TODO: implement stick logic
+		case MoveOption::S  : break; // TODO: implement stick logic
 	}
-	if ( new_position.x < 100 &&
-	     new_position.x >= 0  &&
-	     new_position.y < 100 && 
-	     new_position.y >= 0     )
-	{
-		position = new_position;
-		return true;
-	} 
 
-	return false;
+	if ( new_position.x < 100 && new_position.x >= 0  &&
+	     new_position.y < 100 && new_position.y >= 0     )
+	{ return new_position; } 
+
+	return position;
 
 }
 
@@ -112,6 +112,7 @@ bool Combatant::survive() {
 	return true;
 }
 
+	// random movement selection from move option probability distribution (traits)
 MoveOption selectMove(const Traits& traits) { 
 	
 	int total = traits.f  +

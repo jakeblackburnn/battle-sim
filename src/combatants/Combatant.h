@@ -27,10 +27,10 @@ struct Traits {    // Tendencies to make moves
 class Combatant {
 public: 
 	Color    getColor();
-	Position getPosition();
+	Position getPos();
+	void     movePos(Position p);
 
-	bool move();     // Make a decision on how to move (MoveOption), and then attempt that movement
-			 // returns false if attempted move could not be completed
+	Position targetPos(); // get the combatants desired next position
 
 	bool survive();  // Try to survive based on some information about nearby enemies
 			 // returns false if they didnt make it
