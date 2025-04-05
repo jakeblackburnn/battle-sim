@@ -6,25 +6,18 @@
 #define RENDERER_H
 
 #include <SDL.h>
-#include <vector>
 
+#include "battlefield.h"
 #include "combatants/Combatant.h"
 #include "combatants/Attack.h"
 
-using CombatantVec = std::vector<Combatant*>&;
 
 class Renderer {
 public:
 	 Renderer(SDL_Renderer* sdlRenderer);
 	~Renderer();
 
-	void renderBattlefield( CombatantVec red,
-				CombatantVec orange,
-				CombatantVec yellow,
-				CombatantVec purple,
-				CombatantVec blue,
-				CombatantVec green,
-				const SDL_Rect& battlefieldRect ); 
+	void renderBattlefield( Battlefield battlefield, const SDL_Rect& battlefieldRect ); 
 
 	void renderUI( bool  isPlacing, 
 		       bool  eraseMode, 
@@ -42,8 +35,6 @@ public:
 
 private:
 	SDL_Renderer* renderer;
-	void renderCombatants( CombatantVec combatants, Color color, int startX, int startY); 
-
 };
 
 #endif
