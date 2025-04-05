@@ -49,9 +49,9 @@ void EventHandler::handlePlacementEvent(SDL_Event& e) {
                 	     my >= game->typeButtonRects[i].y && 
 			     my <= game->typeButtonRects[i].y + game->typeButtonRects[i].h ) 
 			{
-				if (i == 0) game->currentPlaceType = TroopType::RED;
-				if (i == 1) game->currentPlaceType = TroopType::ORANGE;
-				if (i == 2) game->currentPlaceType = TroopType::YELLOW;
+				if (i == 0) game->currentPlaceType = Color::RED;
+				if (i == 1) game->currentPlaceType = Color::ORANGE;
+				if (i == 2) game->currentPlaceType = Color::YELLOW;
 				game->eraseMode = false;
 				return;
 			}
@@ -67,7 +67,7 @@ void EventHandler::handlePlacementEvent(SDL_Event& e) {
 		  }
 
 		  	// battlefield placement
-		  if ( mx > 351 && my > 251 && mx <= 651 && my <= 551) { //TODO: figure out battlefield boundaries
+		  if (false) {  // TODO: figure put troop placement
 		        
 		          if (game->eraseMode) { // attempt erase troop
 
@@ -75,29 +75,25 @@ void EventHandler::handlePlacementEvent(SDL_Event& e) {
 
 
 			  } else { // attempt to place troop
-				   
-				// figure out troop coordinates
 				
-				  int bx = mx - 350;
+				  int bx = mx - 350; // battlefield-wise coords
 				  int by = my - 250;
 
-				  int tx = (bx - (bx % 3)) / 3;
+				  int tx = (bx - (bx % 3)) / 3; // troop position coords
 				  int ty = (by - (by % 3)) / 3;
 
 				  std::cout << "Attempting to place troop at: " << tx << ", " << ty << std::endl;
 				   
 					  // check if spot is occupied
 
-				  if (!game->isOccupied(tx, ty)) {
+				  if ( !game->isOccupied( Position(tx, ty) )) {
 					  // place troop (use game helper func)
-					  if (game->currentPlaceType == TroopType::RED) {
-						  game->red.push_back( Troop(tx, ty, TroopType::RED) );
+					  // TODO: figure out troop instantiation
+					  if (game->currentPlaceType == Color::RED) {
 					  }
-					  if (game->currentPlaceType == TroopType::ORANGE) {
-						  game->orange.push_back( Troop(tx, ty, TroopType::ORANGE) );
+					  if (game->currentPlaceType == Color::ORANGE) {
 					  }
-					  if (game->currentPlaceType == TroopType::YELLOW) {
-						  game->yellow.push_back( Troop(tx, ty, TroopType::YELLOW) );
+					  if (game->currentPlaceType == Color::YELLOW) {
 					  }
 
 					  return;

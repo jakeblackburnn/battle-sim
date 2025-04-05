@@ -7,31 +7,33 @@
 
 #include <SDL.h>
 #include <vector>
-#include "Troop.h"
 
-	// vector of troops type alias
-using TroopVector = std::vector<Troop>&;
+#include "combatants/Combatant.h"
+#include "combatants/Attack.h"
+
+using CombatantVec = std::vector<Combatant*>&;
 
 class Renderer {
 public:
-	 Renderer(SDL_Renderer* sdlRenderer, int startX, int startY);
+	 Renderer(SDL_Renderer* sdlRenderer);
 	~Renderer();
 
-	void renderBattlefield( TroopVector red, 
-			        TroopVector orange, 
-				TroopVector yellow, 
-				TroopVector purple, 
-				TroopVector blue, 
-				TroopVector green  );
+	void renderBattlefield( CombatantVec red,
+				CombatantVec orange,
+				CombatantVec yellow,
+				CombatantVec purple,
+				CombatantVec blue,
+				CombatantVec green,
+				const SDL_Rect& battlefieldRect ); 
 
 	void renderUI( bool  isPlacing, 
 		       bool  eraseMode, 
-		       TroopType currentPlaceType,
+		       Color currentPlaceType,
 
 		       const SDL_Rect& playButtonRect,
 		       const SDL_Rect& nextButtonRect,
 		       const SDL_Rect& eraseButtonRect,
-		       const SDL_Rect* typeButtonRects  );
+		       const SDL_Rect* typeButtonRects );
 
 
 	void renderGameOverMessage(bool won);
@@ -39,11 +41,8 @@ public:
 	void presentScreen();
 
 private:
-	int startX;
-	int startY;
-
 	SDL_Renderer* renderer;
-	void renderTroops(TroopVector troops, TroopType type);
+	void renderCombatants( CombatantVec combatants, Color color, int startX, int startY); 
 
 };
 

@@ -5,7 +5,7 @@
 
 #include "Renderer.h"
 
-Renderer::Renderer(SDL_Renderer* sdlRenderer, int startX, int startY) : renderer(sdlRenderer), startX(startX), startY(startY) {}
+Renderer::Renderer(SDL_Renderer* sdlRenderer) : renderer(sdlRenderer) {}
 
 Renderer::~Renderer() {
 	SDL_DestroyRenderer(renderer);
@@ -22,49 +22,50 @@ void Renderer::clearScreen() {
 }
 
 
-void Renderer::renderBattlefield( TroopVector red, 
-				  TroopVector orange, 
-				  TroopVector yellow, 
-				  TroopVector purple, 
-				  TroopVector blue, 
-				  TroopVector green  )
+void Renderer::renderBattlefield( CombatantVec red, 
+				  CombatantVec orange, 
+				  CombatantVec yellow, 
+				  CombatantVec purple, 
+				  CombatantVec blue, 
+				  CombatantVec green,  
+				  const SDL_Rect& battlefieldRect )
 {
-	int w = 300;
-	int h = 300;
 
-	SDL_Rect borderRect = { startX - 1, startY - 1, w + 2, h + 2 };
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // black border around battlefield
+	SDL_RenderDrawRect(renderer, &battlefieldRect);
 
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderDrawRect(renderer, &borderRect);
-	
-	renderTroops(red,    TroopType::RED);
-	renderTroops(purple, TroopType::PURPLE);
+	int startX = battlefieldRect.x;
+	int startY = battlefieldRect.y;
 
-	renderTroops(orange, TroopType::ORANGE);
-	renderTroops(blue,   TroopType::BLUE);
+	renderCombatants(red,    Color::RED,    startX, startY);
+	renderCombatants(purple, Color::PURPLE, startX, startY);
 
-	renderTroops(yellow, TroopType::YELLOW);
-	renderTroops(green,  TroopType::GREEN);
+	renderCombatants(orange, Color::ORANGE, startX, startY);
+	renderCombatants(blue,   Color::BLUE,   startX, startY);
+
+	renderCombatants(yellow, Color::YELLOW, startX, startY);
+	renderCombatants(green,  Color::GREEN,  startX, startY);
 }
 
 
-void Renderer::renderTroops( TroopVector troops, TroopType type ) {
+void Renderer::renderCombatants( CombatantVec combatants, Color color, int startX, int startY) {
 
-	for ( const auto& troop : troops ) {
+	for ( const auto& combatant : combatants ) {
 			// set render position
 		SDL_Rect rect;
-		rect.x = startX + troop.x * 3;
-		rect.y = startY + troop.y * 3;
+		Position p = combatant->getPosition();
+		rect.x = startX + p.x * 3;
+		rect.y = startY + p.y * 3;
 		rect.w = 5;
 		rect.h = 5;
 			// Set Friendly Colors
-		if (type == TroopType::RED)    { SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); }
-		if (type == TroopType::ORANGE) { SDL_SetRenderDrawColor(renderer, 255, 100, 0, 255); }
-		if (type == TroopType::YELLOW) { SDL_SetRenderDrawColor(renderer, 255, 222, 33, 255); }
+		if (color == Color::RED)    { SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); }
+		if (color == Color::ORANGE) { SDL_SetRenderDrawColor(renderer, 255, 100, 0, 255); }
+		if (color == Color::YELLOW) { SDL_SetRenderDrawColor(renderer, 255, 222, 33, 255); }
 			// Set Enemy Colors
-		if (type == TroopType::PURPLE) { SDL_SetRenderDrawColor(renderer, 100, 10, 170, 255); }
-		if (type == TroopType::BLUE)   { SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255); }
-		if (type == TroopType::GREEN)  { SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); }
+		if (color == Color::PURPLE) { SDL_SetRenderDrawColor(renderer, 100, 10, 170, 255); }
+		if (color == Color::BLUE)   { SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255); }
+		if (color == Color::GREEN)  { SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); }
 			// draw troop
 		SDL_RenderFillRect(renderer, &rect);
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -76,7 +77,7 @@ void Renderer::renderTroops( TroopVector troops, TroopType type ) {
 
 void Renderer::renderUI( bool  isPlacing, 
 		         bool  eraseMode, 
-			 TroopType currentPlaceType,
+			 Color currentPlaceType,
 
 		         const SDL_Rect& playButtonRect,
 		         const SDL_Rect& nextButtonRect,
@@ -99,13 +100,13 @@ void Renderer::renderUI( bool  isPlacing,
 			// green border around current selection
 		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
 
-		if (i == 0 && currentPlaceType == TroopType::RED) {
+		if (i == 0 && currentPlaceType == Color::RED) {
 			SDL_RenderDrawRect(renderer, &typeRect);
 		}
-		if (i == 1 && currentPlaceType == TroopType::ORANGE) {
+		if (i == 1 && currentPlaceType == Color::ORANGE) {
 			SDL_RenderDrawRect(renderer, &typeRect);
 		}
-		if (i == 2 && currentPlaceType == TroopType::YELLOW) {
+		if (i == 2 && currentPlaceType == Color::YELLOW) {
 			SDL_RenderDrawRect(renderer, &typeRect);
 		}
 							 
