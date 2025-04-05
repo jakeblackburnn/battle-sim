@@ -26,8 +26,8 @@ if(APPLE)
     find_package(SDL2 REQUIRED)
     find_package(SDL2_mixer REQUIRED)
 
-set(SDL2_INCLUDE_DIR "/opt/homebrew/Cellar/sdl2/2.32.2/include/SDL2/")
-set(SDL2_LIB_DIR "/opt/homebrew/Cellar/sdl2/2.32.2/lib/")
+set(SDL2_INCLUDE_DIR "/opt/homebrew/Cellar/sdl2/2.32.4/include/SDL2/")
+set(SDL2_LIB_DIR "/opt/homebrew/Cellar/sdl2/2.32.4/lib/")
 
 set(SDL2_MIXER_INCLUDE_DIR "/opt/homebrew/Cellar/sdl2_mixer/2.8.1_1/include/SDL2/")
 set(SDL2_MIXER_LIB_DIR "/opt/homebrew/Cellar/sdl2_mixer/2.8.1_1/lib/")
