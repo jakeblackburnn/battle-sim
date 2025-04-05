@@ -10,7 +10,7 @@ using namespace std;
 
 MoveOption selectMove(const Traits& traits);
 
-Combatant::Combatant(Position p, Color c) : position(p), color(c) {}
+Combatant::Combatant(Position p, Color c, int o) : position(p), color(c), orientation(o) {}
 
 Position Combatant::getPosition() {
 	return position;
@@ -19,37 +19,29 @@ Position Combatant::getPosition() {
 
 bool Combatant::move() {
 
-	Traits ts = getTraits();
-
-	MoveOption selection = selectMove(ts);
-
-	Position new_position = position; 
+	Traits     ts           = getTraits();
+	MoveOption selection    = selectMove(ts);
+	Position   new_position = position; 
 
 	switch (selection) {
 
 		case MoveOption::H  : return true; 
 
 		case MoveOption::F  : { 
-			new_position = Position( 
-					 position.x + ( 1 * orientation ), 
-					 position.y 
-				       );
+			new_position = Position( position.x + ( 1 * orientation ),  
+					         position.y                        );
 			break;
 		}
 
 		case MoveOption::FR : { 
-			new_position = Position( 
-					 position.x + ( 1 * orientation ), 
-					 position.y + ( 1 * orientation ) 
-				       );
+			new_position = Position( position.x + ( 1 * orientation ), 
+					         position.y + ( 1 * orientation )  );
 			break;
 		}
 
 		case MoveOption::FL : { 
-			new_position = Position( 
-					 position.x + ( 1 * orientation ), 
-					 position.y - ( 1 * orientation ) 
-				       );
+			new_position = Position( position.x + ( 1 * orientation ), 
+					         position.y - ( 1 * orientation )  );
 			break;
 		}
 
@@ -95,9 +87,17 @@ bool Combatant::move() {
 
 		case MoveOption::S  : return true; // TODO: implement stick logic
 	}
+	if ( new_position.x < 100 &&
+	     new_position.x >= 0  &&
+	     new_position.y < 100 && 
+	     new_position.y >= 0     )
+	{
+		position = new_position;
+		return true;
+	} 
 
-	position = new_position;
-	return true;
+	return false;
+
 }
 
 

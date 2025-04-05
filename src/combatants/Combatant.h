@@ -40,7 +40,7 @@ public:
 			 // returns false if they didnt make it
 
 protected: 
-	Combatant(Position p, Color c);
+	Combatant(Position p, Color c, int o);
 	virtual const Traits& getTraits() const = 0; // get the static const traits struct 
 						     // which is only defined for subclasses of abstract combatant
 

@@ -9,7 +9,7 @@
 
 class Attack : public Combatant {
 public:
-	Attack(Position p, Color c) : Combatant(p, c) {}
+	Attack(Position p, Color c, int o) : Combatant(p, c, o) {}
 
 protected: 
 	const Traits& getTraits() const override { return traits; }
