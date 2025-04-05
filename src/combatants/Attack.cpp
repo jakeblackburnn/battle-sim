@@ -5,14 +5,14 @@
 #include "Attack.h"
 
 const Traits Attack::traits = {
-	1, // forward
-	1, // forward right
-	1, // forward left
-	1, // left
-	1, // hold position
-	1, // right
-	1, // back
-	1, // back right
-	1, // back left
-	1  // stick to friendlies
+	200, // forward
+	50, // forward right
+	50, // forward left
+	50, // left
+	75, // hold position
+	50, // right
+	50, // back
+	25, // back right
+	25, // back left
+	100  // stick to friendlies
 };
