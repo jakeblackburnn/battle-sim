@@ -109,6 +109,37 @@ void Game::setupLevel() {
 	addCombatant( Position(75, 70), Color::PURPLE );
 	addCombatant( Position(75, 80), Color::PURPLE );
 	addCombatant( Position(75, 90), Color::PURPLE );
+
+	addCombatant( Position(80, 10), Color::PURPLE );
+	addCombatant( Position(80, 20), Color::PURPLE );
+	addCombatant( Position(80, 30), Color::PURPLE );
+	addCombatant( Position(80, 40), Color::PURPLE );
+	addCombatant( Position(80, 50), Color::PURPLE );
+	addCombatant( Position(80, 60), Color::PURPLE );
+	addCombatant( Position(80, 70), Color::PURPLE );
+	addCombatant( Position(80, 80), Color::PURPLE );
+	addCombatant( Position(80, 90), Color::PURPLE );
+
+		// Place Friendly troops
+	addCombatant( Position(25, 10), Color::RED );
+	addCombatant( Position(25, 20), Color::RED );
+	addCombatant( Position(25, 30), Color::RED );
+	addCombatant( Position(25, 40), Color::RED );
+	addCombatant( Position(25, 50), Color::RED );
+	addCombatant( Position(25, 60), Color::RED );
+	addCombatant( Position(25, 70), Color::RED );
+	addCombatant( Position(25, 80), Color::RED );
+	addCombatant( Position(25, 90), Color::RED );
+
+	addCombatant( Position(20, 10), Color::RED );
+	addCombatant( Position(20, 20), Color::RED );
+	addCombatant( Position(20, 30), Color::RED );
+	addCombatant( Position(20, 40), Color::RED );
+	addCombatant( Position(20, 50), Color::RED );
+	addCombatant( Position(20, 60), Color::RED );
+	addCombatant( Position(20, 70), Color::RED );
+	addCombatant( Position(20, 80), Color::RED );
+	addCombatant( Position(20, 90), Color::RED );
 	
 	// setup init current place type, erase mode, tics, and state
 	
@@ -138,6 +169,16 @@ void Game::update() {
 	}
 		
 		// Kill Update
+	for ( auto& [p, dat] : battlefield ) {
+		Combatant* guy = dat.occupant;
+		if ( guy ) {
+			bool survived = guy->survive(battlefield);
+			if (!survived) {
+				dat.occupant = nullptr;
+			}
+		}
+	}
+
 		
 		// increment tics, set win / lose conditions
 
@@ -165,6 +206,10 @@ void Game::addCombatant(Position p, Color c) {
 
 	if (c == Color::PURPLE) {
 		battlefield[p].occupant = new Attack(p, c, -1);
+	}
+
+	if (c == Color::RED) {
+		battlefield[p].occupant = new Attack(p, c, 1);
 	}
 }
 

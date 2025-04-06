@@ -29,11 +29,13 @@ public:
 	Color    getColor();
 	Position getPos();
 	void     movePos(Position p);
+	bool     isFriendly();
 
 	Position targetPos(); // get the combatants desired next position
 
-	bool survive();  // Try to survive based on some information about nearby enemies
-			 // returns false if they didnt make it
+	bool survive(Battlefield& b) const;  // Try to survive based on some 
+					     // information about nearby enemies
+				             // returns false if they didnt make it
 
 protected: 
 	Combatant(Position p, Color c, int o);
@@ -43,6 +45,7 @@ protected:
 private:
 	Position position;
 	Color    color;
+	bool     friendly = true;
 	int      orientation = 1; // assumed to be 1 for friendlies or -1 for enemies
 };
 
