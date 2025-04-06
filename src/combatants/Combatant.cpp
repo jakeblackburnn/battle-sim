@@ -105,8 +105,9 @@ Position Combatant::targetPos() {
 bool Combatant::survive(Battlefield& b) const {
 	
 	int enemies = 0;
-	int enemyScore = 15;
+	int enemyScore = 25;
 	int range = 8;
+	int surviveScore = 200;
 
 	int xl = position.x - range < 0   ? 0   : position.x - range;
 	int xr = position.x + range > 100 ? 100 : position.x + range;
@@ -128,7 +129,7 @@ bool Combatant::survive(Battlefield& b) const {
 
 	random_device rd;
 	mt19937 gen(rd());
-	uniform_int_distribution<> dis(1, killScore + 151); // 150 survival score
+	uniform_int_distribution<> dis(1, killScore + surviveScore + 1); // 150 survival score
 	int roll = dis(gen);
 
 	if ( roll <= killScore ) return false; // must roll higher than kill score to survive
