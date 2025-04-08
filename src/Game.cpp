@@ -110,15 +110,25 @@ void Game::setupLevel() {
 	addCombatant( Position(75, 80), Color::PURPLE );
 	addCombatant( Position(75, 90), Color::PURPLE );
 
-	addCombatant( Position(80, 10), Color::PURPLE );
-	addCombatant( Position(80, 20), Color::PURPLE );
-	addCombatant( Position(80, 30), Color::PURPLE );
-	addCombatant( Position(80, 40), Color::PURPLE );
-	addCombatant( Position(80, 50), Color::PURPLE );
-	addCombatant( Position(80, 60), Color::PURPLE );
-	addCombatant( Position(80, 70), Color::PURPLE );
-	addCombatant( Position(80, 80), Color::PURPLE );
-	addCombatant( Position(80, 90), Color::PURPLE );
+	addCombatant( Position(80, 10), Color::BLUE );
+	addCombatant( Position(80, 20), Color::BLUE );
+	addCombatant( Position(80, 30), Color::BLUE );
+	addCombatant( Position(80, 40), Color::BLUE );
+	addCombatant( Position(80, 50), Color::BLUE );
+	addCombatant( Position(80, 60), Color::BLUE );
+	addCombatant( Position(80, 70), Color::BLUE );
+	addCombatant( Position(80, 80), Color::BLUE );
+	addCombatant( Position(80, 90), Color::BLUE );
+
+	addCombatant( Position(85, 10), Color::GREEN );
+	addCombatant( Position(85, 20), Color::GREEN );
+	addCombatant( Position(85, 30), Color::GREEN );
+	addCombatant( Position(85, 40), Color::GREEN );
+	addCombatant( Position(85, 50), Color::GREEN );
+	addCombatant( Position(85, 60), Color::GREEN );
+	addCombatant( Position(85, 70), Color::GREEN );
+	addCombatant( Position(85, 80), Color::GREEN );
+	addCombatant( Position(85, 90), Color::GREEN );
 
 		// Place Friendly troops
 	addCombatant( Position(25, 10), Color::RED );
@@ -131,15 +141,25 @@ void Game::setupLevel() {
 	addCombatant( Position(25, 80), Color::RED );
 	addCombatant( Position(25, 90), Color::RED );
 
-	addCombatant( Position(20, 10), Color::RED );
-	addCombatant( Position(20, 20), Color::RED );
-	addCombatant( Position(20, 30), Color::RED );
-	addCombatant( Position(20, 40), Color::RED );
-	addCombatant( Position(20, 50), Color::RED );
-	addCombatant( Position(20, 60), Color::RED );
-	addCombatant( Position(20, 70), Color::RED );
-	addCombatant( Position(20, 80), Color::RED );
-	addCombatant( Position(20, 90), Color::RED );
+	addCombatant( Position(20, 10), Color::ORANGE );
+	addCombatant( Position(20, 20), Color::ORANGE );
+	addCombatant( Position(20, 30), Color::ORANGE );
+	addCombatant( Position(20, 40), Color::ORANGE );
+	addCombatant( Position(20, 50), Color::ORANGE );
+	addCombatant( Position(20, 60), Color::ORANGE );
+	addCombatant( Position(20, 70), Color::ORANGE );
+	addCombatant( Position(20, 80), Color::ORANGE );
+	addCombatant( Position(20, 90), Color::ORANGE );
+
+	addCombatant( Position(15, 10), Color::YELLOW );
+	addCombatant( Position(15, 20), Color::YELLOW );
+	addCombatant( Position(15, 30), Color::YELLOW );
+	addCombatant( Position(15, 40), Color::YELLOW );
+	addCombatant( Position(15, 50), Color::YELLOW );
+	addCombatant( Position(15, 60), Color::YELLOW );
+	addCombatant( Position(15, 70), Color::YELLOW );
+	addCombatant( Position(15, 80), Color::YELLOW );
+	addCombatant( Position(15, 90), Color::YELLOW );
 	
 	// setup init current place type, erase mode, tics, and state
 	
@@ -210,6 +230,22 @@ void Game::addCombatant(Position p, Color c) {
 
 	if (c == Color::RED) {
 		battlefield[p].occupant = new Attack(p, c, 1);
+	}
+
+	if (c == Color::BLUE) {
+		battlefield[p].occupant = new Ranged(p, c, -1);
+	}
+
+	if (c == Color::ORANGE) {
+		battlefield[p].occupant = new Ranged(p, c, 1);
+	}
+
+	if (c == Color::GREEN) {
+		battlefield[p].occupant = new Intel(p, c, -1);
+	}
+
+	if (c == Color::YELLOW) {
+		battlefield[p].occupant = new Intel(p, c, 1);
 	}
 }
 

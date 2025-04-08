@@ -23,6 +23,8 @@ enum class GameState { PLACING, RUNNING, WON, LOST };
 #include "battlefield.h"
 #include "combatants/Combatant.h"
 #include "combatants/Attack.h"
+#include "combatants/Ranged.h"
+#include "combatants/Intel.h"
 	
 	// Game class
 class Game {
