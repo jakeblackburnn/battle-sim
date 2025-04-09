@@ -16,6 +16,8 @@ set(SOURCE_FILES
 	src/Renderer.cpp
 	src/combatants/Combatant.cpp
 	src/combatants/Attack.cpp
+	src/combatants/Ranged.cpp
+	src/combatants/Intel.cpp
    )
 
 # Set platform-specific options
