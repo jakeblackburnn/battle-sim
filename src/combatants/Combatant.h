@@ -31,9 +31,9 @@ public:
 	void     movePos(Position p);
 	bool     isFriendly();
 
-	Position targetPos(); // get the combatants desired next position
+	Position targetPos(Battlefield& bf); // get the combatants desired next position
 
-	bool survive(Battlefield& b) const;  // Try to survive based on some 
+	bool survive(Battlefield& bf) const;  // Try to survive based on some 
 					     // information about nearby enemies
 				             // returns false if they didnt make it
 
@@ -47,6 +47,24 @@ private:
 	Color    color;
 	bool     friendly = true;
 	int      orientation = 1; // assumed to be 1 for friendlies or -1 for enemies
+				  
+
+	MoveOption selectMove(Battlefield& bf, const Traits& traits);
+		// movement selection depends on 
+		// nearby enemies and allies
+	int countNearbyEnemies(Battlefield& bf, int range) const;
+	int countNearbyFriendlies(Battlefield& bf, int range) const;
+
+		// stick move direction depends on direction
+		// w/ greatest number of friendlies
+	int countForwardFriendlies(Battlefield& bf, int range) const;
+	int countBackFriendlies(Battlefield& bf, int range) const;
+	int countLeftFriendlies(Battlefield& bf, int range) const;
+	int countRightFriendlies(Battlefield& b, int range) const;
+
+		// survival depends on numbers of nearby enemies of the three classes,
+		// and their relative proximity
+	NearbyEnemyScan scanNearbyEnemies();
 };
 
 #endif
