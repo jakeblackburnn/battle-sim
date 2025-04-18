@@ -6,13 +6,13 @@
 
 const Traits Intel::traits = {
 	100, // forward
-	50, // forward right
-	50, // forward left
-	50, // left
+	0, // forward right
+	0, // forward left
+	0, // left
 	100, // hold position
-	50, // right
-	50, // back
-	25, // back right
-	25, // back left
-	300  // stick to friendlies
+	0, // right
+	10, // back
+	0, // back right
+	0, // back left
+	150  // stick to friendlies
 };
