@@ -62,9 +62,6 @@ private:
 	int countLeftFriendlies(Battlefield& bf, int range) const;
 	int countRightFriendlies(Battlefield& b, int range) const;
 
-		// survival depends on numbers of nearby enemies of the three classes,
-		// and their relative proximity
-	NearbyEnemyScan scanNearbyEnemies();
 };
 
 #endif
