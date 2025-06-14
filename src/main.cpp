@@ -33,7 +33,7 @@ int main(int argc, char* argv[]) {
 
 		game.render();
 
-		SDL_Delay(5); // 32 ms delay between tics
+		SDL_Delay(8); // 8 ms delay between tics
 	}
 
 
