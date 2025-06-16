@@ -6,6 +6,7 @@
 #define RENDERER_H
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 
 #include "battlefield.h"
 #include "combatants/Combatant.h"
@@ -16,6 +17,8 @@ class Renderer {
 public:
 	 Renderer(SDL_Renderer* sdlRenderer);
 	~Renderer();
+
+	void renderText(const std::string& text, int x, int y, SDL_Color color, TTF_Font* font);
 
 	void renderBattlefield( Battlefield battlefield, const SDL_Rect& battlefieldRect ); 
 

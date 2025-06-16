@@ -14,6 +14,23 @@ void Renderer::clearScreen()
 	SDL_RenderClear(renderer);  
 }
 
+
+void Renderer::renderText(const std::string& text, int x, int y, SDL_Color color, TTF_Font* font)
+{
+	SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), color);
+	if (!surface) return;
+
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_Rect dst = { x, y, surface->w, surface->h };
+
+	SDL_RenderCopy(renderer, texture, nullptr, &dst);
+
+	SDL_FreeSurface(surface);
+	SDL_DestroyTexture(texture);
+}
+
+
+
 void Renderer::renderBattlefield( Battlefield battlefield, const SDL_Rect& battlefieldRect )
 {
 
