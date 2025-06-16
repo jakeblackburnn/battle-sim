@@ -7,6 +7,7 @@
 
 #include <SDL.h>
 #include <SDL_mixer.h>
+#include <SDL_ttf.h>
 
 #include <vector>
 #include <unordered_map>
@@ -71,12 +72,16 @@ public:
 	Mix_Music* battleMusic;
 	Mix_Chunk* clickSound;
 
+		// Fonts
+	TTF_Font* font;
+
 private:
 
 		// Core Impl Architecture
 	SDL_Window*   window;
 	Renderer*     renderer;
 	EventHandler* eventHandler;
+
 
 		// Helper Functions
 	void addCombatant(Position p, Color c);
