@@ -370,9 +370,6 @@ void Game::render() {
 
 	renderer->renderText("Play", playButtonRect.x + 10, playButtonRect.y, {0, 0, 0}, font);
 
-	if (state == GameState::WON || state == GameState::LOST) {
-		renderer->renderGameOverMessage(state == GameState::WON);
-	}
 	renderer->presentScreen();
 }
 

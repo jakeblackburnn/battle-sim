@@ -110,6 +110,3 @@ void Renderer::renderUI( bool  isPlacing,
 		SDL_RenderDrawRect(renderer, &eraseButtonRect);
 	}
 } 
-
-void Renderer::renderGameOverMessage(bool won) {}
-

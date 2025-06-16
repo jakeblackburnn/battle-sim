@@ -32,7 +32,6 @@ public:
 		       const SDL_Rect* typeButtonRects );
 
 
-	void renderGameOverMessage(bool won);
 	void clearScreen();
 	void presentScreen();
 
