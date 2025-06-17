@@ -17,12 +17,10 @@ void EventHandler::handleEvent(SDL_Event& e) {
 		return;
 	}
 
-	if (game->getState() == GameState::PLACING) {
-		handlePlacementEvent(e);
-	}
-
 	if (game->getState() == GameState::RUNNING) {
 		handleSimulationEvent(e);
+	} else {
+		handlePlacementEvent(e);
 	}
 }
 
@@ -42,6 +40,19 @@ void EventHandler::handlePlacementEvent(SDL_Event& e) {
 			if (game->battleMusic) Mix_PlayMusic(game->battleMusic, -1);
 			return;
 		}
+
+
+			// reset button clicked
+		if (mx >= game->resetButtonRect.x &&
+		    mx <= game->resetButtonRect.x + game->resetButtonRect.w &&
+		    my >= game->resetButtonRect.y &&
+		    my <= game->resetButtonRect.y + game->resetButtonRect.h)
+		{
+		    game->setupLevel(); // resets the current level
+		    return;
+		}
+
+
 			// troop type buttons
 		for (int i = 0; i < 3; i++) {
 			if ( mx >= game->typeButtonRects[i].x && 
