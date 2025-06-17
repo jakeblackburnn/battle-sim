@@ -308,8 +308,34 @@ void Game::update() {
 		// increment tics, set win / lose conditions
 
 	tics++;
-	// if (true) state = GameState::LOST;
-	// if (true) state = GameState::WON;
+
+
+		// Win: All enemies eliminated
+	bool anyEnemiesLeft = false;
+	for (const auto& [pos, data] : battlefield) {
+	    if (data.occupant && !data.occupant->isFriendly()) {
+		anyEnemiesLeft = true;
+		break;
+	    }
+	}
+
+		// Loss: All friendlies eliminated
+	bool anyFriendliesLeft = false;
+	for (const auto& [pos, data] : battlefield) {
+	    if (data.occupant && data.occupant->isFriendly()) {
+		anyFriendliesLeft = true;
+		break;
+	    }
+	}
+
+	if (!anyEnemiesLeft && anyFriendliesLeft) {
+	    state = GameState::WON;
+	} else if (!anyFriendliesLeft) {
+	    state = GameState::LOST;
+	}
+
+
+
 }
 
 
@@ -370,7 +396,16 @@ void Game::render() {
 
 	renderer->renderText("Play", playButtonRect.x + 10, playButtonRect.y, {0, 0, 0}, font);
 
+
+		// end state
+	if (state == GameState::WON) {
+		renderer->renderText("YOU WIN", 100, 100, {0, 150, 0}, font);
+	} else if (state == GameState::LOST) {
+		renderer->renderText("YOU LOSE", 100, 100, {150, 0, 0}, font);
+	}
+
 	renderer->presentScreen();
+
 }
 
 void Game::handleEvent(SDL_Event& e) {
