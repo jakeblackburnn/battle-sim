@@ -33,6 +33,8 @@ Game::Game() : window(nullptr),
 
 	eraseButtonRect = { 10 + 3*40, 10, 30, 30 };
 
+	resetButtonRect = { 370, 10, 75, 30 };
+
 	battlefieldRect = { 349, 249, 303, 303 };
 }
 
@@ -392,10 +394,12 @@ void Game::render() {
 			   playButtonRect,
 			   nextButtonRect,
 		           eraseButtonRect,
+		           resetButtonRect,
 			   typeButtonRects  );
 
 	renderer->renderText("Play", playButtonRect.x + 10, playButtonRect.y, {0, 0, 0}, font);
 
+	renderer->renderText("Reset", resetButtonRect.x + 10, resetButtonRect.y, {0, 0, 0}, font);
 
 		// end state
 	if (state == GameState::WON) {

@@ -66,6 +66,7 @@ public:
 	SDL_Rect nextButtonRect;
 	SDL_Rect typeButtonRects[3];
 	SDL_Rect eraseButtonRect;
+	SDL_Rect resetButtonRect;
 	SDL_Rect battlefieldRect;
 
 		// Audio 

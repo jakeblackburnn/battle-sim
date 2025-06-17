@@ -71,11 +71,20 @@ void Renderer::renderUI( bool  isPlacing,
 		         const SDL_Rect& playButtonRect,
 		         const SDL_Rect& nextButtonRect,
 		         const SDL_Rect& eraseButtonRect,
+		         const SDL_Rect& resetButtonRect,
 		         const SDL_Rect* typeButtonRects  ) 
 {
 		// Render Play button
 	SDL_SetRenderDrawColor(renderer, 50, 255, 50, 255); // light green play button
 	SDL_RenderFillRect(renderer, &playButtonRect);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderDrawRect(renderer, &playButtonRect);
+
+		// Render Reset button
+	SDL_SetRenderDrawColor(renderer, 200, 200, 255, 255); // light blue
+	SDL_RenderFillRect(renderer, &resetButtonRect);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderDrawRect(renderer, &resetButtonRect);
 
 		// Render troop placement type selection
 	for (int i = 0; i < 3; i++) {
