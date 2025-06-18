@@ -24,17 +24,18 @@ Game::Game() : window(nullptr),
 {
 
 
-	playButtonRect = { 270, 10, 60, 30 };
-
-	for (int i = 0; i < 3; i++) {
-		typeButtonRects[i] = { 10 + i*40, 10, 30, 30 };
-	}
-
-	eraseButtonRect = { 10 + 3*40, 10, 30, 30 };
-
-	resetButtonRect = { 370, 10, 75, 30 };
+	playButtonRect =  { 400, 20, 60, 30 };
+	resetButtonRect = { 500, 20, 75, 30 };
 
 	battlefieldRect = { 349, 249, 303, 303 };
+
+	for (int y = 0; y < 3; y++) {
+		typeButtonRects[y] = { 25, 50 + y*40, 30, 30 };
+	}
+
+	eraseButtonRect = { 25, 50 + 3*40, 30, 30 };
+
+
 }
 
 
