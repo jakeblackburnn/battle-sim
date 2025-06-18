@@ -25,7 +25,6 @@ Game::Game() : window(nullptr),
 
 
 	playButtonRect = { 270, 10, 60, 30 };
-	nextButtonRect = { 250, 10, 100, 30 };
 
 	for (int i = 0; i < 3; i++) {
 		typeButtonRects[i] = { 10 + i*40, 10, 30, 30 };
@@ -392,7 +391,6 @@ void Game::render() {
 			   eraseMode, 
 			   currentPlaceType,
 			   playButtonRect,
-			   nextButtonRect,
 		           eraseButtonRect,
 		           resetButtonRect,
 			   typeButtonRects  );

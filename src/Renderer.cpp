@@ -69,7 +69,6 @@ void Renderer::renderUI( bool  isPlacing,
 			 Color currentPlaceType,
 
 		         const SDL_Rect& playButtonRect,
-		         const SDL_Rect& nextButtonRect,
 		         const SDL_Rect& eraseButtonRect,
 		         const SDL_Rect& resetButtonRect,
 		         const SDL_Rect* typeButtonRects  ) 
