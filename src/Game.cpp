@@ -24,8 +24,8 @@ Game::Game() : window(nullptr),
 {
 
 
-	playButtonRect =  { 400, 20, 60, 30 };
-	resetButtonRect = { 500, 20, 75, 30 };
+	playButtonRect =  { 415, 20, 60, 30 };
+	resetButtonRect = { 515, 20, 75, 30 };
 
 	battlefieldRect = { 349, 249, 303, 303 };
 
@@ -397,14 +397,20 @@ void Game::render() {
 			   typeButtonRects  );
 
 	renderer->renderText("Play", playButtonRect.x + 10, playButtonRect.y, {0, 0, 0}, font);
-
 	renderer->renderText("Reset", resetButtonRect.x + 10, resetButtonRect.y, {0, 0, 0}, font);
+
+	renderer->renderText("Combatant Selection", typeButtonRects[0].x, typeButtonRects[0].y - 40, {0,0,0}, font);
+
+	renderer->renderText("Attack Unit", typeButtonRects[0].x + 40, typeButtonRects[0].y, {0,0,0}, font);
+	renderer->renderText("Ranged Unit", typeButtonRects[1].x + 40, typeButtonRects[1].y, {0,0,0}, font);
+	renderer->renderText("Intel Unit", typeButtonRects[2].x + 40, typeButtonRects[2].y, {0,0,0}, font);
+	renderer->renderText("Erase", eraseButtonRect.x + 40, eraseButtonRect.y, {0,0,0}, font);
 
 		// end state
 	if (state == GameState::WON) {
-		renderer->renderText("YOU WIN", 100, 100, {0, 150, 0}, font);
+		renderer->renderText("YOU WIN", 450, 100, {0, 150, 0}, font);
 	} else if (state == GameState::LOST) {
-		renderer->renderText("YOU LOSE", 100, 100, {150, 0, 0}, font);
+		renderer->renderText("YOU LOSE", 450, 100, {150, 0, 0}, font);
 	}
 
 	renderer->presentScreen();
