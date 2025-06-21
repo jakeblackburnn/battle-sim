@@ -11,6 +11,8 @@ using namespace std;
 
 MoveOption selectMove(const Traits& traits);
 
+Combatant::~Combatant() {}
+
 Combatant::Combatant(Position p, Color c, int o) : position(p), color(c), orientation(o) {
 	if (orientation == -1) { friendly = false; }
 }
@@ -165,8 +167,8 @@ MoveOption Combatant::selectMove(Battlefield& bf, const Traits& traits) {
 
 	int range = 8;
 	int advantageMultiplier = 5;
-	int disadvantageMultiplier = 10;
-	int crowdednessMultiplier = 10;
+	int disadvantageMultiplier = 20;
+	int crowdednessMultiplier = 30;
 
 	int enemies    = this->countNearbyEnemies(bf, range);
 	int friendlies = this->countNearbyFriendlies(bf, range);

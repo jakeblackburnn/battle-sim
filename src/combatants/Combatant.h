@@ -26,6 +26,8 @@ struct Traits {    // Tendencies to make moves
 // Abstract Combatant
 class Combatant {
 public: 
+	virtual ~Combatant();
+
 	Color    getColor();
 	Position getPos();
 	void     movePos(Position p);
