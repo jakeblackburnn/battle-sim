@@ -301,7 +301,7 @@ void Game::update() {
 		if ( guy ) {
 			bool survived = guy->survive(battlefield);
 			if (!survived) {
-				dat.occupant = nullptr;
+				deleteCombatant(guy);
 			}
 		}
 	}
@@ -343,13 +343,20 @@ void Game::update() {
 
 
 bool Game::isOccupied(Position p) {
-	// TODO: code me
-	return false;
+	return battlefield[p].occupant != nullptr;
 }
 
 
 void Game::deleteCombatant(Combatant* combatant) {
-	// TODO: code me
+	if (!combatant) return;
+
+	Position pos = combatant->getPos();
+
+	auto it = battlefield.find(pos);
+	if (it != battlefield.end() && it->second.occupant == combatant) {
+		delete combatant;
+		it->second.occupant = nullptr;
+	}
 }
 
 void Game::addCombatant(Position p, Color c) {
