@@ -107,9 +107,7 @@ void Game::setupLevel() {
 		// clear battlefield
 	for (auto& [p, dat] : battlefield) {
 		if (dat.occupant) {
-			// TODO: implement combatant destructor
-			// delete dat.occupant;
-			dat.occupant = nullptr;
+			deleteCombatant(dat.occupant);
 		}
 	}
 	battlefield.clear();
@@ -354,38 +352,49 @@ void Game::deleteCombatant(Combatant* combatant) {
 
 	auto it = battlefield.find(pos);
 	if (it != battlefield.end() && it->second.occupant == combatant) {
+		if (combatant->isFriendly()) {
+		    friendlyCount--;
+		} else {
+		    enemyCount--;
+		}
 		delete combatant;
 		it->second.occupant = nullptr;
 	}
 }
 
 void Game::addCombatant(Position p, Color c) {
-	if ( battlefield[p].occupant ) { // delete existing combatant in position
-		deleteCombatant( battlefield[p].occupant );
+	if ( battlefield[p].occupant ) { // if position occupied, dont add anything
+		return;
 	}
 
 	if (c == Color::PURPLE) {
 		battlefield[p].occupant = new Attack(p, c, -1);
+		enemyCount++;
 	}
 
 	if (c == Color::RED) {
 		battlefield[p].occupant = new Attack(p, c, 1);
+		friendlyCount++;
 	}
 
 	if (c == Color::BLUE) {
 		battlefield[p].occupant = new Ranged(p, c, -1);
+		enemyCount++;
 	}
 
 	if (c == Color::ORANGE) {
 		battlefield[p].occupant = new Ranged(p, c, 1);
+		friendlyCount++;
 	}
 
 	if (c == Color::GREEN) {
 		battlefield[p].occupant = new Intel(p, c, -1);
+		enemyCount++;
 	}
 
 	if (c == Color::YELLOW) {
 		battlefield[p].occupant = new Intel(p, c, 1);
+		friendlyCount++;
 	}
 }
 
@@ -412,6 +421,10 @@ void Game::render() {
 	renderer->renderText("Ranged Unit", typeButtonRects[1].x + 40, typeButtonRects[1].y, {0,0,0}, font);
 	renderer->renderText("Intel Unit", typeButtonRects[2].x + 40, typeButtonRects[2].y, {0,0,0}, font);
 	renderer->renderText("Erase", eraseButtonRect.x + 40, eraseButtonRect.y, {0,0,0}, font);
+
+	renderer->renderText("Friendlies: " + std::to_string(friendlyCount), 20, 700, {0,0,0}, font);
+	renderer->renderText("Enemies: " + std::to_string(enemyCount), 20, 730, {0,0,0}, font);
+	renderer->renderText("Tics: " + std::to_string(tics), 20, 760, {0,0,0}, font);
 
 		// end state
 	if (state == GameState::WON) {

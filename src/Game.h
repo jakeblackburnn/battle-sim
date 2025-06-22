@@ -82,6 +82,9 @@ private:
 	Renderer*     renderer;
 	EventHandler* eventHandler;
 
+		// Data Readout
+	int friendlyCount = 0;
+	int enemyCount = 0;
 
 		// Helper Functions
 	void addCombatant(Position p, Color c);
