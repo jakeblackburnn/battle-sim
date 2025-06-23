@@ -47,6 +47,8 @@ public:
 
 	bool isOccupied(Position p);
 
+	void addCombatant(Position p, Color c);
+
 
 		// Core Game State
 	GameState state;
@@ -87,7 +89,6 @@ private:
 	int enemyCount = 0;
 
 		// Helper Functions
-	void addCombatant(Position p, Color c);
 	void deleteCombatant(Combatant* combatant);
 
 
