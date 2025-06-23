@@ -78,7 +78,11 @@ void EventHandler::handlePlacementEvent(SDL_Event& e) {
 		  }
 
 		  	// battlefield placement
-		  if (false) {  // TODO: figure put troop placement
+		  if ( mx >= game->battlefieldRect.x && 
+		       mx <= game->battlefieldRect.x + game->battlefieldRect.w &&
+                       my >= game->battlefieldRect.y && 
+		       my <= game->battlefieldRect.y + game->battlefieldRect.h ) 
+		  {  // TODO: figure put troop placement
 		        
 		          if (game->eraseMode) { // attempt erase troop
 
@@ -92,8 +96,6 @@ void EventHandler::handlePlacementEvent(SDL_Event& e) {
 
 				  int tx = (bx - (bx % 3)) / 3; // troop position coords
 				  int ty = (by - (by % 3)) / 3;
-
-				  std::cout << "Attempting to place troop at: " << tx << ", " << ty << std::endl;
 				   
 					  // check if spot is occupied
 
@@ -101,10 +103,13 @@ void EventHandler::handlePlacementEvent(SDL_Event& e) {
 					  // place troop (use game helper func)
 					  // TODO: figure out troop instantiation
 					  if (game->currentPlaceType == Color::RED) {
+						  game->addCombatant( Position(tx, ty), Color::RED);
 					  }
 					  if (game->currentPlaceType == Color::ORANGE) {
+						  game->addCombatant( Position(tx, ty), Color::ORANGE);
 					  }
 					  if (game->currentPlaceType == Color::YELLOW) {
+						  game->addCombatant( Position(tx, ty), Color::YELLOW);
 					  }
 
 					  return;
