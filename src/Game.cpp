@@ -1,4 +1,4 @@
-//
+
 // Created by J. Blackburn - Mar 22 2025
 //
 
@@ -203,6 +203,28 @@ void Game::update() {
 	
 		// make sure game state is running
 	if (state != GameState::RUNNING) return; 
+
+		// calculate "center of mass" for both armies
+	int friendlyX = 0; 
+	int friendlyY = 0;
+	int enemyX = 0;
+	int enemyY = 0;
+
+	for ( auto& [p, dat] : battlefield ) {
+		if ( dat.occupant ) {
+			if ( dat.occupant->isFriendly() == true ) {
+				friendlyX += p.x;
+				friendlyY += p.y;
+			} else {
+				enemyX += p.x;
+				enemyY += p.y;
+			}
+		}
+	}
+
+	Position friendlyCOM = Position( friendlyX / friendlyCount, friendlyY / friendlyCount );
+	Position enemyCOM = Position( enemyX / enemyCount, enemyY / enemyCount );
+
 
 		// Move Update 
 	for ( auto& [p, dat] : battlefield ) {
