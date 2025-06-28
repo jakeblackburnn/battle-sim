@@ -172,12 +172,12 @@ MoveOption Combatant::selectMove(Battlefield& bf, const Traits& traits) {
 
 	int enemies    = this->countNearbyEnemies(bf, range);
 	int friendlies = this->countNearbyFriendlies(bf, range);
-
 	int numbering    = max(0, friendlies - enemies); // measure of advantage
 	int outnumbering = max(0, enemies - friendlies); // measure of disadvantage
 
 	int advantage    = numbering    * advantageMultiplier;
 	int disadvantage = outnumbering * disadvantageMultiplier;
+	int crowdedness  = friendlies * crowdednessMultiplier;
 
 	int f  = max(1, (traits.f + advantage) - disadvantage);
 	int b  = max(1, (traits.b + disadvantage) - advantage);
@@ -192,20 +192,19 @@ MoveOption Combatant::selectMove(Battlefield& bf, const Traits& traits) {
 	int bl = traits.bl;
 	int br = traits.br;
 
-	int crowdedness = friendlies * crowdednessMultiplier;
 
 	int s  = max(1, traits.s - crowdedness);
 	
-	int total = traits.f  +
-		    traits.fl +
-		    traits.fr +
-		    traits.h  +
-		    traits.l  +
-		    traits.r  +
-		    traits.b  +
-		    traits.bl +
-		    traits.br +
-		    traits.s;
+	int total = f  +
+		    fl +
+		    fr +
+		    h  +
+		    l  +
+		    r  +
+		    b  +
+		    bl +
+		    br +
+		    s;
 
 	random_device rd;
 	mt19937 gen(rd());
@@ -214,15 +213,15 @@ MoveOption Combatant::selectMove(Battlefield& bf, const Traits& traits) {
 
 	int runningTotal = 0;
 
-	if ((runningTotal += traits.fr) > roll) return MoveOption::FR;
-	if ((runningTotal += traits.f)  > roll) return MoveOption::F;
-	if ((runningTotal += traits.fl) > roll) return MoveOption::FL;
-	if ((runningTotal += traits.r)  > roll) return MoveOption::R;
-	if ((runningTotal += traits.h)  > roll) return MoveOption::H;
-	if ((runningTotal += traits.l)  > roll) return MoveOption::L;
-	if ((runningTotal += traits.br) > roll) return MoveOption::BR;
-	if ((runningTotal += traits.b)  > roll) return MoveOption::B;
-	if ((runningTotal += traits.bl) > roll) return MoveOption::BL;
+	if ((runningTotal += fr) > roll) return MoveOption::FR;
+	if ((runningTotal += f)  > roll) return MoveOption::F;
+	if ((runningTotal += fl) > roll) return MoveOption::FL;
+	if ((runningTotal += r)  > roll) return MoveOption::R;
+	if ((runningTotal += h)  > roll) return MoveOption::H;
+	if ((runningTotal += l)  > roll) return MoveOption::L;
+	if ((runningTotal += br) > roll) return MoveOption::BR;
+	if ((runningTotal += b)  > roll) return MoveOption::B;
+	if ((runningTotal += bl) > roll) return MoveOption::BL;
 
 	return MoveOption::S;
 }
