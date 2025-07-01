@@ -53,10 +53,10 @@ bool Combatant::survive(Battlefield& bf) const {
 
 
 
-Position Combatant::targetPos(Battlefield& bf) {
+Position Combatant::targetPos(Battlefield& bf, int dx, int dy) {
 
 	Traits     ts           = getTraits();
-	MoveOption selection    = selectMove(bf, ts);
+	MoveOption selection    = selectMove(bf, ts, dx, dy);
 	Position   new_position = position; 
 
 	int range = 8;
@@ -163,12 +163,12 @@ Position Combatant::targetPos(Battlefield& bf) {
 	// more friendlies => less likely to stick, more likely to advance
 	// enemies - friendlies (outnumbered)  => less likely to advance,
 	// less likely to retreat
-MoveOption Combatant::selectMove(Battlefield& bf, const Traits& traits) { 
+MoveOption Combatant::selectMove(Battlefield& bf, const Traits& traits, int dx, int dy) { 
 
 	int range = 8;
-	int advantageMultiplier = 5;
-	int disadvantageMultiplier = 20;
-	int crowdednessMultiplier = 30;
+	int advantageMultiplier = 10;
+	int disadvantageMultiplier = 10;
+	int crowdednessMultiplier = 5;
 
 	int enemies    = this->countNearbyEnemies(bf, range);
 	int friendlies = this->countNearbyFriendlies(bf, range);
@@ -179,27 +179,93 @@ MoveOption Combatant::selectMove(Battlefield& bf, const Traits& traits) {
 	int disadvantage = outnumbering * disadvantageMultiplier;
 	int crowdedness  = friendlies * crowdednessMultiplier;
 
-	int f  = max(1, (traits.f + advantage) - disadvantage);
-	int b  = max(1, (traits.b + disadvantage) - advantage);
 
-	int fl = traits.fl;
-	int fr = traits.fr;
+	int advance = max(1, (traits.advance + advantage) - disadvantage);
+	int retreat = max(1, (traits.retreat + disadvantage) - advantage);
 
-	int h  = traits.h;
-	int l  = traits.l;
-	int r  = traits.r;
+	int af = (traits.flank + traits.advance) / 2;
+	int rf = (traits.flank + traits.retreat) / 2;
 
-	int bl = traits.bl;
-	int br = traits.br;
+	int advance_flank = max(1, af + ( (advantage - disadvantage) / 2 ) );
+	int retreat_flank = max(1, rf + ( (disadvantage - advantage) / 2 ) );
 
 
-	int s  = max(1, traits.s - crowdedness);
-	
+	int s = traits.stick + max(0, traits.stick - crowdedness);
+	int h = traits.hold  + max(0, traits.hold - abs(advantage - disadvantage));
+
+	int f = 0;
+	int fl = 0;
+	int fr = 0;
+
+	int l = 0;
+	int r = 0;
+
+	int b = 0;
+	int bl = 0;
+	int br = 0;
+
+	if (abs(dx) > abs(dy)) {
+			// advancing direction (dir of greatest com difference) is horizontal
+		if (dx > 0) {
+				// armies com are forward facing, forward orientation
+			f = advance;
+			fl = advance_flank;
+			fr = advance_flank;
+
+			l = traits.flank;
+			r = traits.flank;
+
+			b = retreat;
+			bl = retreat_flank;
+			br = retreat_flank;
+
+		} else {
+				// armies com are turned around, backward orientation
+			b = advance;
+			bl = advance_flank;
+			br = advance_flank;
+
+			l = traits.flank;
+			r = traits.flank;
+
+			f = retreat;
+			fl = retreat_flank;
+			fr = retreat_flank;
+		}
+	} else {
+			// advancing direction is vertical
+		if (dy > 0) {
+				// armies com are to the right each other, rightward orientation
+			r = advance;
+			fr = advance_flank;
+			br = advance_flank;
+
+			f = traits.flank;
+			b = traits.flank;
+
+			l = retreat;
+			fl = retreat_flank;
+			bl = retreat_flank;
+		} else {
+				// armies com are to the left of each other, leftward orientation
+			l = advance;
+			fl = advance_flank;
+			bl = advance_flank;
+
+			f = traits.flank;
+			b = traits.flank;
+
+			r = retreat;
+			fr = retreat_flank;
+			br = retreat_flank;
+		}
+	}
+
 	int total = f  +
 		    fl +
 		    fr +
-		    h  +
 		    l  +
+		    h  +
 		    r  +
 		    b  +
 		    bl +
