@@ -10,17 +10,12 @@
 enum class Color  { RED, ORANGE, YELLOW, PURPLE, BLUE, GREEN };
 enum class MoveOption { F, FR, FL, L, H, R, B, BR, BL, S };
 
-struct Traits {    // Tendencies to make moves 
-	int f;     // stored as integer "scores" which partition the space of possible moves;
-	int fr;    // moves can be selected with a random number in the range of the total score
-	int fl;
-	int l;
-	int h;
-	int r;
-	int b;
-	int br;
-	int bl;
-	int s;
+struct Traits {    // tendencies to make particular moves
+	int advance;
+	int hold;
+	int retreat;
+	int stick;
+	int flank;
 };
 
 // Abstract Combatant
@@ -33,7 +28,7 @@ public:
 	void     movePos(Position p);
 	bool     isFriendly();
 
-	Position targetPos(Battlefield& bf); // get the combatants desired next position
+	Position targetPos(Battlefield& bf, int dx, int dy); // get the combatants desired next position
 
 	bool survive(Battlefield& bf) const;  // Try to survive based on some 
 					     // information about nearby enemies
@@ -51,7 +46,7 @@ private:
 	int      orientation = 1; // assumed to be 1 for friendlies or -1 for enemies
 				  
 
-	MoveOption selectMove(Battlefield& bf, const Traits& traits);
+	MoveOption selectMove(Battlefield& bf, const Traits& traits, int dx, int dy);
 		// movement selection depends on 
 		// nearby enemies and allies
 	int countNearbyEnemies(Battlefield& bf, int range) const;

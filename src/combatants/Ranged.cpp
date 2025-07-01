@@ -5,14 +5,9 @@
 #include "Ranged.h"
 
 const Traits Ranged::traits = {
-	125, // forward
-	0, // forward right
-	0, // forward left
-	0, // left
-	125, // hold position
-	0, // right
-	25, // back
-	0, // back right
-	0, // back left
-	150  // stick to friendlies
+	50, // advance
+	100,     // hold
+	50,     // retreat
+	100,     // stick
+	100     // flank
 };
