@@ -28,7 +28,7 @@ public:
 	void     movePos(Position p);
 	bool     isFriendly();
 
-	Position targetPos(Battlefield& bf, int dx, int dy); // get the combatants desired next position
+	Position targetPos(Battlefield& bf, Position fcom, Position ecom); // get the combatants desired next position
 
 	bool survive(Battlefield& bf) const;  // Try to survive based on some 
 					     // information about nearby enemies

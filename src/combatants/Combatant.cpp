@@ -53,7 +53,11 @@ bool Combatant::survive(Battlefield& bf) const {
 
 
 
-Position Combatant::targetPos(Battlefield& bf, int dx, int dy) {
+Position Combatant::targetPos(Battlefield& bf, Position fcom, Position ecom) {
+
+
+	int dx = ecom.x - fcom.x;
+	int dy = ecom.y - fcom.y;
 
 	Traits     ts           = getTraits();
 	MoveOption selection    = selectMove(bf, ts, dx, dy);
@@ -115,39 +119,32 @@ Position Combatant::targetPos(Battlefield& bf, int dx, int dy) {
 			break;
 		}
 		case MoveOption::S  : {
-			int f = this->countForwardFriendlies(bf, range);
-			int b = this->countBackFriendlies(bf, range);
-			int r = this->countRightFriendlies(bf, range);
-			int l = this->countLeftFriendlies(bf, range);
-
-			int high = max({f, b, r, l});
-
-			if (f == high) {
-				new_position = Position( position.x + ( 1 * orientation ),  
-							 position.y                        );
-				break;
+			int x = position.x;
+			int y = position.y;
+			if (friendly) {
+				if (position.x < fcom.x) {
+					x += 1;
+				} else {
+					x -= 1;
+				}
+				if (position.y < fcom.y) {
+					y += 1;
+				} else {
+					y -= 1;
+				}
+			} else {
+				if (position.x < ecom.x) {
+					x += 1;
+				} else {
+					x -= 1;
+				}
+				if (position.y < ecom.y) {
+					y += 1;
+				} else {
+					y -= 1;
+				}
 			}
-			if (b == high) {
-				new_position = Position( 
-						 position.x - ( 1 * orientation ), 
-						 position.y 
-					       );
-				break;
-			}
-			if (r == high) {
-				new_position = Position( 
-						 position.x, 
-						 position.y + ( 1 * orientation ) 
-					       );
-				break;
-			}
-			if (l == high) {
-				new_position = Position( 
-						 position.x, 
-						 position.y - ( 1 * orientation ) 
-					       );
-				break;
-			}
+			new_position = Position(x, y);
 	        }
 	}
 

@@ -225,14 +225,10 @@ void Game::update() {
 	Position fcom = Position( friendlyX / friendlyCount, friendlyY / friendlyCount );
 	Position ecom = Position( enemyX / enemyCount, enemyY / enemyCount );
 
-	int dx = ecom.x - fcom.x;
-	int dy = ecom.y - fcom.y;
-
-
 		// Move Update 
 	for ( auto& [p, dat] : battlefield ) {
 		if ( dat.occupant ) {
-			Position target = dat.occupant->targetPos(battlefield, dx, dy);
+			Position target = dat.occupant->targetPos(battlefield, fcom, ecom);
 			if ( !battlefield[target].occupant ) {
 				dat.occupant->movePos(target);
 				battlefield[target].occupant = dat.occupant;
