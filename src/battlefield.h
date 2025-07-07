@@ -30,10 +30,13 @@ struct PosHash {
 };
 
 struct PosData {
-	Combatant*         occupant = nullptr,
+	Combatant*         occupant = nullptr;
 	vector<Combatant*> incoming;
-}
+};
 
 using Battlefield = unordered_map<Position, PosData, PosHash>;
+
+
+
 
 #endif
